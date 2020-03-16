@@ -1,3 +1,12 @@
+__author__ = "Everton Colombo"
+__copyright__ = "Open Source Software 2020"
+__credits__ = ["Everton Colombo", "Harrison Kinsley"]
+__license__ = "GPL"
+__version__ = "1.0.1"
+__maintainer__ = "Everton Romanizni Colombo"
+__email__ = "e.rcolombo2@gmail.com"
+__status__ = "Prototype"
+
 import socket
 import select
 import threading
@@ -143,8 +152,6 @@ class ManagerFrame(Frame):
                     msg = f"{user['data'].decode('utf-8')} has entered the room!"''
                     self.evnt_box.insert(END, f"<{SERVER_USRNAME}> {msg}")
                     self.connected_clients_var.set(int(self.connected_clients_var.get()) + 1)
-                    client_username_list.append(nusrn)
-                    self.clients_box.insert(END, nusrn)
                     for client_socket in clients:
                         if client_socket != notified_socket:
                             client_socket.send(
@@ -168,7 +175,7 @@ class ManagerFrame(Frame):
                         del clients[notified_socket]
                         continue
                     user = clients[notified_socket]
-                    print(f"<{user['data'].decode('utf-8')}>: {message['data'].decode('utf-8')}")
+                    self.evnt_box.insert(END, f"<{user['data'].decode('utf-8')}>: {message['data'].decode('utf-8')}")
 
                     for client_socket in clients:
                         if client_socket != notified_socket:
