@@ -1,3 +1,12 @@
+__author__ = "Everton Colombo"
+__copyright__ = "Open Source Software 2020"
+__credits__ = ["Everton Colombo", "Harrison Kinsley"]
+__license__ = "GPL"
+__version__ = "1.0.1"
+__maintainer__ = "Everton Romanizni Colombo"
+__email__ = "e.rcolombo2@gmail.com"
+__status__ = "Prototype"
+
 from tkinter import *
 import tkinter.messagebox as mb
 from xtra_widgets import *
@@ -108,7 +117,7 @@ class ChatPage(Frame):
         self.chat_box = ScrollBox(self, width=40, height=20)
         self.txtinvar = StringVar()
         self.text_input_entry = Entry(self, textvariable=self.txtinvar)
-        self.text_input_entry.bind("<Return>", self.send_msg)
+        self.text_input_entry.bind("<Return>", lambda _: self.send_msg())
         self.send_button = Button(self, text="Send", command=self.send_msg)
 
         self.chat_box.grid(row=0, column=0, columnspan=2, sticky='nsew')
@@ -116,9 +125,9 @@ class ChatPage(Frame):
         self.send_button.grid(row=1, column=1, sticky='ew')
         self.check_thread = threading.Thread(target=self.check_messages, daemon=True)
 
-    def send_msg(self, msg=None):
+    def send_msg(self):
         global my_username
-        txt_input = self.txtinvar.get() if msg is None else msg
+        txt_input = str(self.txtinvar.get())
         if txt_input:
             self.chat_box.insert(END, f'<{my_username}>: {txt_input}')
             message = txt_input.encode('utf-8')
